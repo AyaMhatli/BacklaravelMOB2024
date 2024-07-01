@@ -31,7 +31,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+   /* public function store(Request $request)
     {
         // Valider les données envoyées par le client
         $request->validate([
@@ -47,11 +47,11 @@ class UserController extends Controller
         ]);
 
         // Créer un nouvel utilisateur
-        $user = User::create($request->all());
+     $user = User::create($request->all());
 
         // Retourner la ressource de l'utilisateur nouvellement créé
         return response()->json($user, 201);
-    }
+    }*/
 
     
         public function getName($id)

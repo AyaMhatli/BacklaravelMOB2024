@@ -41,7 +41,7 @@ class QueueController extends Controller
   // Retourner le nombre de files d'attente au format JSON
     return response()->json(['count' => $count]);
 }
-   public function index()
+  /* public function index()
    {
 
    }
@@ -70,12 +70,12 @@ class QueueController extends Controller
         return new QueueResource($queue);
     }
 
-    public function destroy(Queue $queue)
+   public function destroy(Queue $queue)
     {
         // Supprimer la file d'attente
         $queue->delete();
 
         // Retourner une réponse JSON
         return response()->json(null, 204);
-    }
+    }*/
 }

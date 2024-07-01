@@ -31,11 +31,11 @@ class CallController extends Controller
          return response()->json(['count' => $count]);
     }
 
-    public function show($id)
+  /*  public function show($id)
     {
         $call = Call::find($id);
         return response()->json($call);
-    }
+    } 
 
     public function store(Request $request)
     {
@@ -57,5 +57,5 @@ class CallController extends Controller
         $call = Call::findOrFail($id);
         $call->delete();
         return response()->json(null, 204);
-    }
+    }*/
 }
