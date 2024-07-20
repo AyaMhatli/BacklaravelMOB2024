@@ -121,7 +121,7 @@ public function getUserDepartmentLetter(Request $request)
         'department_letter' => $departmentLetter,
     ]);
 }
-        public function login(Request $request)
+ public function login(Request $request)
         {
             $request->validate([
                 'email' => 'required|string|email',

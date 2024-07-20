@@ -21,30 +21,54 @@ class QueueController extends Controller
        $today = Carbon::today();
       
       // $count = Queue::where('called', 0)->count();
-      $coun = Queue::whereDate('created_at', $today)->where('called', 0)->count();
+      $coun = Queue::whereDate('created_at', $today)->where('called', 1)->count();
    
        // Retourner le nombre de files d'attente au format JSON
-       return response()->json(['count' => $coun-1]);
+       return response()->json(['count' => $coun]);
    }
     public function AppelNONTraites()
 {
    
-        /* Récupérer toutes les files d'attente avec called égal à 0
-        $queues = Queue::where('called', 0)->get();
-        
-        // Retourner les files d'attente au format JSON
-       return response()->json($queues);
-       //return queues;*/
-       $today = Carbon::today();
-   // $count = Queue::where('called', 0)->count();
-   $count = Queue::whereDate('created_at', $today)->where('called', 0)->count();
-  // Retourner le nombre de files d'attente au format JSON
-    return response()->json(['count' => $count]);
-}
-  /* public function index()
-   {
+      
+       $today = Carbon::now();
+     //  \Log::info('Today: ' . $today->toDateString());
 
-   }
+   $count = Queue::whereDate('created_at', $today)->where('called', 0)->count();
+  // \Log::info('Queues: ' . $queues->count());
+ 
+   return response()->json(['count' => $count]);
+}
+public function traiterQueue()
+{    
+    // Retrieve the current date
+    $currentDate = Carbon::now()->toDateString();
+
+    // Retrieve the oldest unprocessed queue item created today
+    $queueItem = Queue::whereDate('created_at', $currentDate)
+                       ->where('called', 0)
+                       ->orderBy('created_at', 'asc')
+                       ->first();
+
+    if ($queueItem) {
+        // Mark this item as processed
+        $queueItem->called = 1;
+        $queueItem->save();
+
+        // Retrieve the next unprocessed queue item
+      /*  $nextQueueItem = Queue::whereDate('created_at', $currentDate)
+                              ->where('called', 0)
+                              ->orderBy('created_at', 'asc')
+                              ->first();*/
+
+        return response()->json(['message' => 'Queue item processed', /*'next_queue_item' => $nextQueueItem*/]);
+    }
+
+    return response()->json(['message' => 'No queue items to process'], 200);
+}
+
+}
+
+  /* 
   
     public function show(Queue $queue)
     {
@@ -78,4 +102,7 @@ class QueueController extends Controller
         // Retourner une réponse JSON
         return response()->json(null, 204);
     }*/
-}
+
+
+
+

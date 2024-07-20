@@ -37,6 +37,7 @@ Route::prefix('calls')->group(function () {
 Route::prefix('queues')->group(function () {
     Route::get('/traite', [QueueController::class, 'AppelTraites']);
     Route::get('/nontraite', [QueueController::class, 'AppelNONTraites']);
+    Route::post('/traiter-queue', [QueueController::class, 'traiterQueue']);
     Route::get('/', [QueueController::class, 'index']);
     Route::get('/{queue}', [QueueController::class, 'show']);
     Route::post('/', [QueueController::class, 'store']);

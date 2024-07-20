@@ -12,3 +12,4 @@ class AgentMenuController extends Controller
         return view('agent_menus.index', compact('agentMenus'));
     }
 }
+ 

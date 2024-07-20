@@ -32,6 +32,14 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
         ]);
     }*/
+
+
+     /**
+     * Handle user login.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
 {
     $request->validate([
@@ -40,10 +48,10 @@ class AuthController extends Controller
     ]);
 
     $credentials = $request->only('email', 'password');
-    $remember = $request->has('remember'); // Vérifiez si l'option "Remember Me" est cochée
+    //$remember = $request->has('remember'); // Vérifiez si l'option "Remember Me" est cochée
 
     // Utilisez la méthode attempt pour essayer de connecter l'utilisateur
-    if (Auth::attempt($credentials, $remember)) {
+    if (Auth::attempt($credentials,/* $remember*/)) {
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -59,7 +67,12 @@ class AuthController extends Controller
     }
 }
 
-
+ /**
+     * Handle user logout.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
